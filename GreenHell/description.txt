@@ -1,1 +1,4 @@
 Your jungles now feature venomous creatures, poisonous folliage, and parasite-filled waters. Enjoy.
+
+Credits:
+	erraT: Verdant Blessing sprite

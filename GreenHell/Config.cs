@@ -54,5 +54,12 @@ namespace GreenHell {
 
 		[DefaultValue( 60 * 60 * 2 )]	// 2 minutes
 		public int InfectionTickDuration { get; set; } = 60 * 60 * 2;
+
+
+		[DefaultValue( true )]
+		public bool VerdantBlessingRecipeEnabled { get; set; } = true;
+
+		[DefaultValue( false )]
+		public bool VerdantBlessingSoldByDryad { get; set; } = false;
 	}
 }

@@ -35,13 +35,13 @@ namespace GreenHell {
 		////////////////
 
 		public override void PreUpdate() {
-			GreenHellPlayerLogic.UpdateBrambleState( this.player );
+			GreenHellPlayerLogic.UpdateBrambleState( this );
 			GreenHellPlayerLogic.UpdateParasiteState( this.player );
 		}
 
 
 		public override void UpdateLifeRegen() {
-			GreenHellPlayerLogic.UpdateBrambleLifeEffects( this.player );
+			GreenHellPlayerLogic.UpdateLifeEffectsIfParasited( this.player );
 		}
 
 

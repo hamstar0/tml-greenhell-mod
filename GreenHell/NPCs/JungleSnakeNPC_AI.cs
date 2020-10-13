@@ -59,13 +59,20 @@ namespace GreenHell.NPCs {
 
 		////////////////
 
-		public void Pounce( Player target ) {
+		public bool Pounce( Player target ) {
+			var myplayer = target.GetModPlayer<GreenHellPlayer>();
+			if( myplayer.HasVerdantBlessing ) {
+				return false;
+			}
+
 			var pounceDir = target.Center - this.npc.Center;
 			pounceDir.Normalize();
 			pounceDir *= 7f;
 			pounceDir.Y -= 1f;
 
 			this.npc.velocity += pounceDir;
+
+			return true;
 		}
 	}
 }
