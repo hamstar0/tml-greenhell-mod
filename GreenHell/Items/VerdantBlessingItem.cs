@@ -8,7 +8,6 @@ namespace GreenHell.Items {
 	class VerdantBlessingItem : ModItem {
 		public static void SetupShopIf( Chest shop, ref int nextSlot ) {
 			var config = GreenHellConfig.Instance;
-
 			if( !config.Get<bool>( nameof( config.VerdantBlessingSoldByDryad ) ) ) {
 				return;
 			}
