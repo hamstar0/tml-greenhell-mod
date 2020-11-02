@@ -49,7 +49,7 @@ namespace GreenHell.Items {
 			var config = GreenHellConfig.Instance;
 			int duration = config.Get<int>( nameof(config.AntidoteBuffTickDuration) );
 
-			player.AddBuff( ModContent.BuffType<AntibodiesBuff>(), duration );
+			player.AddBuff( ModContent.BuffType<AntiveninBuff>(), duration );
 		}
 	}
 }

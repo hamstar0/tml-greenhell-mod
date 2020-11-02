@@ -5,9 +5,9 @@ using Terraria.ModLoader;
 
 
 namespace GreenHell.Buffs {
-	class AntibodiesBuff : ModBuff {
+	class AntiveninBuff : ModBuff {
 		public override void SetDefaults() {
-			this.DisplayName.SetDefault( "Antibodies" );
+			this.DisplayName.SetDefault( "Antivenin" );
 			this.Description.SetDefault( "You are protected from poisons and venom" );
 			Main.debuff[this.Type] = false;
 		}
@@ -18,7 +18,11 @@ namespace GreenHell.Buffs {
 			}
 
 			if( player.HasBuff(BuffID.Venom) ) {
-				player.ClearBuff( this.Type );	// Venom trades
+				var config = GreenHellConfig.Instance;
+
+				if( config.Get<bool>(nameof(config.AntiveninBuffTradesForVenom)) ) {
+					player.ClearBuff( this.Type );  // Venom trades
+				}
 				player.ClearBuff( BuffID.Venom );
 			}
 		}

@@ -68,5 +68,8 @@ namespace GreenHell {
 
 		[DefaultValue( (int)(60f * 60f * 1.5f) )]	// 2 minutes
 		public int AntidoteBuffTickDuration { get; set; } = (int)(60f * 60f * 1.5f);
+
+		[DefaultValue( true )]
+		public bool AntiveninBuffTradesForVenom { get; set; } = true;
 	}
 }

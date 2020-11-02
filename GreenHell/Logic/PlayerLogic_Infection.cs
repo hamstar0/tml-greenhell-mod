@@ -6,7 +6,7 @@ using Terraria;
 namespace GreenHell.Logic {
 	static partial class GreenHellPlayerLogic {
 		public static bool ApplyInfectionIf( GreenHellPlayer myplayer, double damage ) {
-			if( myplayer.HasVerdantBlessing ) {
+			if( !myplayer.player.ZoneJungle || myplayer.HasVerdantBlessing ) {
 				return false;
 			}
 
