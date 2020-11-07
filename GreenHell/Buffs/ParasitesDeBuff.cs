@@ -19,7 +19,7 @@ namespace GreenHell.Buffs {
 				Timers.SetTimer( "GreenHellParasiteBleedingCheck", 60, false, () => false );
 
 				var config = GreenHellConfig.Instance;
-				float bleedChance = config.Get<int>( nameof(config.ParasiteAfflictChancePerSecond) );
+				float bleedChance = config.Get<float>( nameof(config.ParasiteAfflictChancePerSecond) );
 
 				if( bleedChance > Main.rand.NextFloat() ) {
 					player.AddBuff( BuffID.Bleeding, 60 * 5 );
