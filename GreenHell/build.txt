@@ -1,4 +1,4 @@
-displayName = Green Hell
+.displayName = Green Hell
 author = hamstar
 version = 0.4.1
 modReferences = HamstarHelpers@5.9.5

@@ -16,9 +16,9 @@ namespace GreenHell.Logic {
 			}
 
 			var config = GreenHellConfig.Instance;
-			float spawnChance = config.Get<float>( nameof( config.SnakeSpawnChanceFromGrassCut ) );
+			float spawnChance = config.Get<float>( nameof(config.SnakeSpawnChanceFromGrassCut) );
 
-			if( Main.rand.NextFloat() > spawnChance ) {
+			if( Main.rand.NextFloat() < spawnChance ) {
 				NPC.NewNPC( i * 16, j * 16, ModContent.NPCType<JungleSnakeNPC>() );
 			}
 		}
