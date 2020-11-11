@@ -15,7 +15,9 @@ namespace GreenHell {
 				return;
 			}
 
-			GreenHellWorldLogic.SpawnSnakeIfFromGrass( i, j, tileType );
+			if( Main.netMode != NetmodeID.MultiplayerClient ) {
+				GreenHellWorldLogic.SpawnSnakeIfFromGrass( i, j, tileType );
+			}
 		}
 	}
 }

@@ -29,8 +29,8 @@ namespace GreenHell {
 		public int EmbrambledDuration { get; set; } = 60 * 7;
 
 
-		[DefaultValue( 0.05f )]
-		public float SnakeSpawnChanceFromGrassCut { get; set; } = 0.05f;
+		[DefaultValue( 0.01f )]
+		public float SnakeSpawnChanceFromGrassCut { get; set; } = 0.01f;
 		
 		[DefaultValue( 7 * 16 )]
 		public int SnakeAlertRangeFar { get; set; } = 7 * 16;
