@@ -24,11 +24,23 @@ namespace GreenHell.Logic {
 		}
 
 
-		public static void UpdateInfectionEffects( GreenHellPlayer myplayer ) {
-			float extraHp = myplayer.player.statLifeMax2 - 100;
-			float infectionPercent = (float)myplayer.InfectionStage / (float)InfectionDeBuff.Stages;
+		////////////////
 
-			myplayer.player.statLifeMax2 = 100 + (int)( extraHp * ( 1f - infectionPercent ) );
+		public static int GetInfectionMaxLife( int currentMaxLife, int infectionStage ) {
+			float extraHp = currentMaxLife - 100;
+			float infectionPercent = (float)infectionStage / (float)InfectionDeBuff.Stages;
+
+			return 100 + (int)( extraHp * (1f - infectionPercent) );
+		}
+
+
+		////////////////
+
+		public static void UpdateInfectionEffects( GreenHellPlayer myplayer ) {
+			myplayer.player.statLifeMax2 = GreenHellPlayerLogic.GetInfectionMaxLife(
+				myplayer.player.statLifeMax2,
+				myplayer.InfectionStage
+			);
 		}
 	}
 }

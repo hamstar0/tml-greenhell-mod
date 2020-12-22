@@ -9,22 +9,27 @@ namespace GreenHell.Buffs {
 	class ParasitesDeBuff : ModBuff {
 		public override void SetDefaults() {
 			this.DisplayName.SetDefault( "Parasites" );
-			this.Description.SetDefault( "You are covered in nasty parasites" );
+			this.Description.SetDefault(
+				"You are covered in nasty parasites"
+				+"\nMay induce bleeding and weakness at random"
+			);
 			Main.debuff[this.Type] = true;
 			this.longerExpertDebuff = true;
 		}
 
 		public override void Update( Player player, ref int buffIndex ) {
-			if( Timers.GetTimerTickDuration( "GreenHellParasiteBleedingCheck" ) == 0 ) {
-				Timers.SetTimer( "GreenHellParasiteBleedingCheck", 60, false, () => false );
+			if( Timers.GetTimerTickDuration( "GreenHellParasiteBleedingCheck" ) > 0 ) {
+				return;
+			}
 
-				var config = GreenHellConfig.Instance;
-				float bleedChance = config.Get<float>( nameof(config.ParasiteAfflictChancePerSecond) );
+			Timers.SetTimer( "GreenHellParasiteBleedingCheck", 60, false, () => false );
 
-				if( bleedChance > Main.rand.NextFloat() ) {
-					player.AddBuff( BuffID.Bleeding, 60 * 5 );
-					player.AddBuff( BuffID.Weak, 60 * 5 );
-				}
+			var config = GreenHellConfig.Instance;
+			float bleedChance = config.Get<float>( nameof(config.ParasiteAfflictChancePerSecond) );
+
+			if( bleedChance > Main.rand.NextFloat() ) {
+				player.AddBuff( BuffID.Bleeding, 60 * 5 );
+				player.AddBuff( BuffID.Weak, 60 * 5 );
 			}
 		}
 	}

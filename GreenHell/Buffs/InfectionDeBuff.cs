@@ -7,6 +7,9 @@ using Terraria.ModLoader;
 namespace GreenHell.Buffs {
 	class InfectionDeBuff : ModBuff {
 		public const int Stages = 4;
+		
+		public const string BaseDescription = "Your injuries are becoming infected"
+			+"\nYour max health is reduced.";
 
 		public static Texture2D[] Textures { get; private set; } = new Texture2D[ InfectionDeBuff.Stages ];
 
@@ -43,11 +46,11 @@ namespace GreenHell.Buffs {
 
 
 
-		////
+		////////////////
 
 		public override void SetDefaults() {
 			this.DisplayName.SetDefault( "Infection" );
-			this.Description.SetDefault( "Your injuries are becoming infected" );
+			this.Description.SetDefault( InfectionDeBuff.BaseDescription );
 			Main.debuff[this.Type] = true;
 			this.longerExpertDebuff = true;
 		}

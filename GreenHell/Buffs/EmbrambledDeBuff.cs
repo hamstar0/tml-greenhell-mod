@@ -7,7 +7,10 @@ namespace GreenHell.Buffs {
 	class EmbrambledDeBuff : ModBuff {
 		public override void SetDefaults() {
 			this.DisplayName.SetDefault( "Embrambled" );
-			this.Description.SetDefault( "You are covered in sticky, stinging brambles" );
+			this.Description.SetDefault(
+				"You are covered in sticky, stinging brambles"
+				+"\nYou're poisoned and move slowly"
+			);
 			Main.debuff[this.Type] = true;
 			this.longerExpertDebuff = true;
 		}
