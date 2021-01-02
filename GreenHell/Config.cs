@@ -66,6 +66,9 @@ namespace GreenHell {
 		[DefaultValue( true )]
 		public bool AntidoteSoldByWitchDoctor { get; set; } = true;
 
+		[DefaultValue( true )]
+		public bool AntidoteSoldByDryad { get; set; } = true;
+
 		[DefaultValue( (int)(60f * 60f * 1.5f) )]	// 2 minutes
 		public int AntidoteBuffTickDuration { get; set; } = (int)(60f * 60f * 1.5f);
 
