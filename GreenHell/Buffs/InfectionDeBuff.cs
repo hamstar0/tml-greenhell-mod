@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 
@@ -55,7 +56,18 @@ namespace GreenHell.Buffs {
 			this.longerExpertDebuff = true;
 		}
 
+
+		////////////////
+
 		public override void Update( Player player, ref int buffIndex ) {
+			if( player.velocity.Y != 0 ) {
+				return;
+			}
+
+			var myplayer = player.GetModPlayer<GreenHellPlayer>();
+			int dmg = (int)(player.velocity.X * (float)myplayer.InfectionStage);
+
+			player.Hurt( PlayerDeathReason.ByCustomReason("didn't wash their hands"), dmg, 0, false, true, false );
 		}
 	}
 }

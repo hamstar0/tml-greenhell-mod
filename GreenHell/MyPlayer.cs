@@ -43,10 +43,5 @@ namespace GreenHell {
 		public override void UpdateLifeRegen() {
 			GreenHellPlayerLogic.UpdateLifeEffectsIfParasited( this.player );
 		}
-
-
-		public override void PostUpdateEquips() {
-			GreenHellPlayerLogic.UpdateInfectionEffects( this );
-		}
 	}
 }
