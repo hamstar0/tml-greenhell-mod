@@ -1,8 +1,10 @@
 ﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
+using HamstarHelpers.Services.Timers;
 
 
 namespace GreenHell.Buffs {
@@ -65,9 +67,28 @@ namespace GreenHell.Buffs {
 			}
 
 			var myplayer = player.GetModPlayer<GreenHellPlayer>();
-			int dmg = (int)(player.velocity.X * (float)myplayer.InfectionStage);
+			float vel = Math.Abs( player.velocity.X );
+			vel = vel < 1f ? 0f : vel - 1f;
+			int dmg = (int)(vel * (float)myplayer.InfectionStage);
 
-			player.Hurt( PlayerDeathReason.ByCustomReason("didn't wash their hands"), dmg, 0, false, true, false );
+			player.lifeRegen = dmg;
+			/*player.Hurt(
+				damageSource: PlayerDeathReason.ByCustomReason("didn't wash their hands"),
+				Damage: dmg,
+				hitDirection: 0,
+				pvp: false,
+				quiet: true,
+				Crit: false
+			);*/
+
+			if( dmg > 0 ) {
+				if( Timers.GetTimerTickDuration( "GreenHellInfectionAlert" ) == 0 ) {
+					Timers.SetTimer( "GreenHellInfectionAlert", 60 * 5, false, () => {
+						Main.NewText( "Movements agitate your condition.", Color.OrangeRed );
+						return false;
+					} );
+				}
+			}
 		}
 	}
 }
