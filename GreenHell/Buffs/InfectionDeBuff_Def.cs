@@ -1,14 +1,11 @@
 ﻿using System;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ModLoader;
-using HamstarHelpers.Services.Timers;
 
 
 namespace GreenHell.Buffs {
-	class InfectionDeBuff : ModBuff {
+	partial class InfectionDeBuff : ModBuff {
 		public const int Stages = 4;
 		
 		public const string BaseDescription = "Your injuries are becoming infected"
@@ -56,39 +53,6 @@ namespace GreenHell.Buffs {
 			this.Description.SetDefault( InfectionDeBuff.BaseDescription );
 			Main.debuff[this.Type] = true;
 			this.longerExpertDebuff = true;
-		}
-
-
-		////////////////
-
-		public override void Update( Player player, ref int buffIndex ) {
-			if( player.velocity.Y != 0 ) {
-				return;
-			}
-
-			var myplayer = player.GetModPlayer<GreenHellPlayer>();
-			float vel = Math.Abs( player.velocity.X );
-			vel = vel < 1f ? 0f : vel - 1f;
-			int dmg = (int)(vel * (float)myplayer.InfectionStage);
-
-			player.lifeRegen = dmg;
-			/*player.Hurt(
-				damageSource: PlayerDeathReason.ByCustomReason("didn't wash their hands"),
-				Damage: dmg,
-				hitDirection: 0,
-				pvp: false,
-				quiet: true,
-				Crit: false
-			);*/
-
-			if( dmg > 0 ) {
-				if( Timers.GetTimerTickDuration( "GreenHellInfectionAlert" ) == 0 ) {
-					Timers.SetTimer( "GreenHellInfectionAlert", 60 * 5, false, () => {
-						Main.NewText( "Movements agitate your condition.", Color.OrangeRed );
-						return false;
-					} );
-				}
-			}
 		}
 	}
 }

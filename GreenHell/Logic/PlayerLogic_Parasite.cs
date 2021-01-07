@@ -37,13 +37,17 @@ namespace GreenHell.Logic {
 		}
 
 
-		public static void UpdateLifeEffectsIfParasited( Player player ) {
-			if( player.lifeRegen > 0 ) {
-				if( player.HasBuff( ModContent.BuffType<ParasitesDeBuff>() ) ) {
-DebugHelpers.Print( "parasite", "lifeRegen: " + player.lifeRegen + " (" + ( player.lifeRegen / 2 ) + ")" );
-					player.lifeRegen /= 2;
-					//this.player.lifeRegenTime /= 2;
-				}
+		////
+
+		public static void UpdateLifeEffectsIfInfection( Player player ) {
+			if( player.HasBuff( ModContent.BuffType<InfectionDeBuff>() ) ) {
+				InfectionDeBuff.UpdateLifeEffects( player );
+			}
+		}
+
+		public static void UpdateLifeEffectsIfParasites( Player player ) {
+			if( player.HasBuff( ModContent.BuffType<ParasitesDeBuff>() ) ) {
+				ParasitesDeBuff.UpdateLifeEffects( player );
 			}
 		}
 	}
