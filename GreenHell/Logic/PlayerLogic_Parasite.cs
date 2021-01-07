@@ -8,7 +8,7 @@ using GreenHell.Buffs;
 
 namespace GreenHell.Logic {
 	static partial class GreenHellPlayerLogic {
-		public static bool UpdateParasiteState( Player player ) {
+		public static bool UpdateParasiteStateIf( Player player ) {
 			if( !player.ZoneJungle || !player.wet || player.honeyWet || player.lavaWet ) {
 				return false;
 			}

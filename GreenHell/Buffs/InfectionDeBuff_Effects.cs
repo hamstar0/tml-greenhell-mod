@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
+using HamstarHelpers.Helpers.Debug;
 using HamstarHelpers.Services.Timers;
 
 
@@ -14,8 +15,9 @@ namespace GreenHell.Buffs {
 
 			var myplayer = player.GetModPlayer<GreenHellPlayer>();
 			float vel = Math.Abs( player.velocity.X );
-			vel = vel < 1f ? 0f : vel - 1f;
+			vel = vel <= 1f ? 0f : vel - 1f;
 			int dmg = (int)(vel * (float)myplayer.InfectionStage);
+//DebugHelpers.Print( "infection", "dmg: "+dmg.ToString()+", stage: "+myplayer.InfectionStage+", vel: "+vel );
 
 			player.lifeRegen = -dmg;
 			/*player.Hurt(

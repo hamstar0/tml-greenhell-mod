@@ -9,7 +9,7 @@ using GreenHell.Buffs;
 
 namespace GreenHell.Logic {
 	static partial class GreenHellPlayerLogic {
-		public static bool UpdateBrambleState( GreenHellPlayer myplayer ) {
+		public static bool UpdateBrambleStateIf( GreenHellPlayer myplayer ) {
 			if( myplayer.HasVerdantBlessing ) {
 				return false;
 			}

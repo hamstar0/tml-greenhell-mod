@@ -1,8 +1,11 @@
 ﻿using System;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 using HamstarHelpers.Helpers.Debug;
 using GreenHell.Logic;
+using GreenHell.NetProtocols;
 
 
 namespace GreenHell {
@@ -16,6 +19,46 @@ namespace GreenHell {
 
 		public override bool CloneNewInstances => false;
 
+
+
+		////////////////
+
+		public override void Load( TagCompound tag ) {
+			if( tag.ContainsKey("infection_stage") ) {
+				this.InfectionStage = tag.GetInt( "infection_stage" );
+			}
+		}
+
+		public override TagCompound Save() {
+			return new TagCompound {
+				{ "infection_stage", this.InfectionStage }
+			};
+		}
+
+
+		////////////////
+
+		public override void SyncPlayer( int toWho, int fromWho, bool newPlayer ) {
+			if( Main.netMode == NetmodeID.MultiplayerClient ) {
+				if( this.player.whoAmI == Main.myPlayer ) {
+					PlayerStateProtocol.SendToServer();
+				}
+			} else {
+				PlayerStateProtocol.SendToClients( toWho, fromWho );
+			}
+		}
+
+		public override void SendClientChanges( ModPlayer clientPlayer ) {
+			if( Main.netMode != NetmodeID.MultiplayerClient || Main.myPlayer != this.player.whoAmI ) {
+				return;
+			}
+
+			var myclone = (GreenHellPlayer)clientPlayer;
+
+			if( myclone.InfectionStage != this.InfectionStage ) {
+				PlayerStateProtocol.SendToServer();
+			}
+		}
 
 
 		////////////////
@@ -35,8 +78,9 @@ namespace GreenHell {
 		////////////////
 
 		public override void PreUpdate() {
-			GreenHellPlayerLogic.UpdateBrambleState( this );
-			GreenHellPlayerLogic.UpdateParasiteState( this.player );
+			GreenHellPlayerLogic.UpdateInfectionStateIf( this );
+			GreenHellPlayerLogic.UpdateBrambleStateIf( this );
+			GreenHellPlayerLogic.UpdateParasiteStateIf( this.player );
 		}
 
 

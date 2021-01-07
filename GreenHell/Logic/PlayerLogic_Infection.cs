@@ -1,6 +1,7 @@
-﻿using GreenHell.Buffs;
-using System;
+﻿using System;
 using Terraria;
+using Terraria.ModLoader;
+using GreenHell.Buffs;
 
 
 namespace GreenHell.Logic {
@@ -21,6 +22,16 @@ namespace GreenHell.Logic {
 			}
 
 			return false;
+		}
+
+		public static void UpdateInfectionStateIf( GreenHellPlayer myplayer ) {
+			if( myplayer.InfectionStage == 0 ) {
+				int infBuffType = ModContent.BuffType<InfectionDeBuff>();
+
+				if( myplayer.player.HasBuff(infBuffType) ) {
+					myplayer.player.ClearBuff( infBuffType );
+				}
+			}
 		}
 	}
 }
