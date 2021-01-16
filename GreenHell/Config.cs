@@ -55,6 +55,11 @@ namespace GreenHell {
 		[DefaultValue( 60 * 60 * 2 )]	// 2 minutes
 		public int InfectionTickDuration { get; set; } = 60 * 60 * 2;
 
+		[Range( 0f, 100f )]
+		[DefaultValue( 2f )]
+		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
+		public float InfectionDamagePerVelocityScale { get; set; } = 2f;
+
 
 		[DefaultValue( true )]
 		public bool VerdantBlessingRecipeEnabled { get; set; } = true;

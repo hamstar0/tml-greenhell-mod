@@ -28,7 +28,7 @@ namespace GreenHell.Logic {
 
 			for( int tileX = fromTileX; tileX <= toTileX; tileX++ ) {
 				for( int tileY = fromTileY; tileY <= toTileY; tileY++ ) {
-					Tile tile = Main.tile[tileX, tileY];
+					Tile tile = Main.tile[ tileX, tileY ];
 					if( tile?.active() != true || tile.type != TileID.JungleThorns ) {
 						continue;
 					}

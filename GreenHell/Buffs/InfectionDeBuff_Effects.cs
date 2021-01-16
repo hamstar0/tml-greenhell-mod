@@ -9,14 +9,17 @@ using HamstarHelpers.Services.Timers;
 namespace GreenHell.Buffs {
 	partial class InfectionDeBuff : ModBuff {
 		public static void UpdateLifeEffects( Player player ) {
-			if( player.velocity.Y != 0 ) {
+			if( player.dead || player.velocity.Y != 0 ) {
 				return;
 			}
 
+			var config = GreenHellConfig.Instance;
 			var myplayer = player.GetModPlayer<GreenHellPlayer>();
+			int stage = myplayer.InfectionStage;
+			float scale = config.Get<float>( nameof(config.InfectionDamagePerVelocityScale) );
 			float vel = Math.Abs( player.velocity.X );
 			vel = vel <= 1f ? 0f : vel - 1f;
-			int dmg = (int)(vel * (float)myplayer.InfectionStage);
+			int dmg = (int)(vel * (float)stage * scale);
 //DebugHelpers.Print( "infection", "dmg: "+dmg.ToString()+", stage: "+myplayer.InfectionStage+", vel: "+vel );
 
 			player.lifeRegen = -dmg;

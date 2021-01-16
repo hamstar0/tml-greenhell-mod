@@ -25,12 +25,16 @@ namespace GreenHell.Logic {
 		}
 
 		public static void UpdateInfectionStateIf( GreenHellPlayer myplayer ) {
-			if( myplayer.InfectionStage == 0 ) {
-				int infBuffType = ModContent.BuffType<InfectionDeBuff>();
+			if( myplayer.player.dead ) {
+				myplayer.InfectionStage = 0;
+			}
 
-				if( myplayer.player.HasBuff(infBuffType) ) {
-					myplayer.player.ClearBuff( infBuffType );
-				}
+			int infBuffType = ModContent.BuffType<InfectionDeBuff>();
+
+			if( myplayer.InfectionStage == 0 ) {
+				myplayer.player.ClearBuff( infBuffType );
+			} else if( !myplayer.player.HasBuff(infBuffType) ) {
+				myplayer.player.AddBuff( infBuffType, 2 );
 			}
 		}
 	}
