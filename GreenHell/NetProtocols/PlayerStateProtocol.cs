@@ -1,23 +1,33 @@
 ﻿using System;
 using Terraria;
+using Terraria.ModLoader;
 using HamstarHelpers.Services.Network.NetIO;
 using HamstarHelpers.Services.Network.NetIO.PayloadTypes;
+using GreenHell.Buffs;
 
 
 namespace GreenHell.NetProtocols {
 	[Serializable]
 	class PlayerStateProtocol : NetIOBidirectionalPayload {
 		public static void SendToServer() {
-			var myplayer = Main.LocalPlayer.GetModPlayer<GreenHellPlayer>();
-			var protocol = new PlayerStateProtocol( myplayer.InfectionStage );
+			Player plr = Main.LocalPlayer;
+			var myplayer = plr.GetModPlayer<GreenHellPlayer>();
+			int buffIdx = plr.FindBuffIndex( ModContent.BuffType<InfectionDeBuff>() );
+			int buffTime = buffIdx >= 0 ? plr.buffTime[ buffIdx ] : 0;
+
+			var protocol = new PlayerStateProtocol( myplayer.InfectionStage, buffTime );
 			protocol.PlayerWho = Main.myPlayer;
 
 			NetIO.SendToServer( protocol );
 		}
 
 		public static void SendToClients( int toWho, int fromWho ) {
-			var myplayer = Main.LocalPlayer.GetModPlayer<GreenHellPlayer>();
-			var protocol = new PlayerStateProtocol( myplayer.InfectionStage );
+			Player plr = Main.player[ fromWho ];
+			var myplayer = plr.GetModPlayer<GreenHellPlayer>();
+			int buffIdx = plr.FindBuffIndex( ModContent.BuffType<InfectionDeBuff>() );
+			int buffTime = buffIdx >= 0 ? plr.buffTime[buffIdx] : 0;
+
+			var protocol = new PlayerStateProtocol( myplayer.InfectionStage, buffTime );
 			protocol.PlayerWho = fromWho;
 
 			NetIO.SendToClients( protocol, toWho, fromWho );
@@ -29,6 +39,7 @@ namespace GreenHell.NetProtocols {
 
 		public int PlayerWho;
 		public int InfectionState;
+		public int InfectionDuration;
 
 
 
@@ -36,8 +47,9 @@ namespace GreenHell.NetProtocols {
 
 		private PlayerStateProtocol() { }
 
-		private PlayerStateProtocol( int infectionState ) {
+		private PlayerStateProtocol( int infectionState, int infectionDuration ) {
 			this.InfectionState = infectionState;
+			this.InfectionDuration = infectionDuration;
 		}
 
 
@@ -55,8 +67,16 @@ namespace GreenHell.NetProtocols {
 		////
 
 		private void Receive() {
-			var myplayer = Main.player[ this.PlayerWho ].GetModPlayer<GreenHellPlayer>();
+			Player player = Main.player[this.PlayerWho];
+			var myplayer = player.GetModPlayer<GreenHellPlayer>();
+
 			myplayer.InfectionStage = this.InfectionState;
+
+			if( this.InfectionState > 0 ) {
+				int infBuffType = ModContent.BuffType<InfectionDeBuff>();
+
+				player.AddBuff( infBuffType, this.InfectionDuration );
+			}
 		}
 	}
 }

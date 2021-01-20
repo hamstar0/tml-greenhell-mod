@@ -6,17 +6,17 @@ using GreenHell.Buffs;
 
 namespace GreenHell.Logic {
 	static partial class GreenHellPlayerLogic {
-		public static bool ApplyInfectionIf( GreenHellPlayer myplayer, double damage ) {
+		public static bool ApplyInfectionIf( GreenHellPlayer myplayer, double damage, bool sync ) {
 			if( !myplayer.player.ZoneJungle || myplayer.HasVerdantBlessing ) {
 				return false;
 			}
 
 			var config = GreenHellConfig.Instance;
-			float infectionChancePerChunk = config.Get<float>( nameof( config.InfectionChancePer10LifeLostInJungle ) );
+			float infectionChancePerChunk = config.Get<float>( nameof(config.InfectionChancePer10LifeLostInJungle) );
 
 			for( ; damage > 10d; damage -= 10d ) {
 				if( Main.rand.NextFloat() < infectionChancePerChunk ) {
-					InfectionDeBuff.GiveTo( myplayer );
+					InfectionDeBuff.GiveTo( myplayer, sync );
 					return true;
 				}
 			}

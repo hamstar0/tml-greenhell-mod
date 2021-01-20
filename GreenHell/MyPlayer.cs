@@ -50,7 +50,9 @@ namespace GreenHell {
 					PlayerStateProtocol.SendToServer();
 				}
 			} else {
-				PlayerStateProtocol.SendToClients( toWho, fromWho );
+				if( fromWho != -1 ) {
+					PlayerStateProtocol.SendToClients( toWho, fromWho );
+				}
 			}
 		}
 
@@ -70,7 +72,11 @@ namespace GreenHell {
 		////////////////
 
 		public override void Hurt( bool pvp, bool quiet, double damage, int hitDirection, bool crit ) {
-			GreenHellPlayerLogic.ApplyInfectionIf( this, crit ? damage * 2d : damage );
+			GreenHellPlayerLogic.ApplyInfectionIf(
+				myplayer: this,
+				damage: damage,//crit ? damage * 2d : damage,
+				sync: Main.netMode == NetmodeID.Server
+			);
 		}
 
 
