@@ -12,6 +12,7 @@ namespace GreenHell.Buffs {
 				+"\nYou're poisoned and move slowly"
 			);
 			Main.debuff[this.Type] = true;
+			Main.buffNoSave[this.Type] = false;
 			this.longerExpertDebuff = true;
 		}
 

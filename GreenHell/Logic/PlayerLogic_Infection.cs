@@ -24,6 +24,9 @@ namespace GreenHell.Logic {
 			return false;
 		}
 
+
+		////////////////
+
 		public static void UpdateInfectionStateIf( GreenHellPlayer myplayer ) {
 			if( myplayer.player.dead ) {
 				myplayer.InfectionStage = 0;
@@ -34,7 +37,16 @@ namespace GreenHell.Logic {
 			if( myplayer.InfectionStage == 0 ) {
 				myplayer.player.ClearBuff( infBuffType );
 			} else if( !myplayer.player.HasBuff(infBuffType) ) {
-				myplayer.player.AddBuff( infBuffType, 2 );
+				//myplayer.player.AddBuff( infBuffType, 2 );
+				myplayer.InfectionStage = 0;
+			}
+		}
+
+		////
+
+		public static void UpdateLifeEffectsIfInfection( Player player ) {
+			if( player.HasBuff( ModContent.BuffType<InfectionDeBuff>() ) ) {
+				InfectionDeBuff.UpdateLifeEffects( player );
 			}
 		}
 	}

@@ -9,7 +9,8 @@ namespace GreenHell.Buffs {
 		public const int Stages = 4;
 		
 		public const string BaseDescription = "Your injuries are becoming infected"
-			+"\nYour max health is reduced.";
+			+"\nMovements now cause damage"
+			+"\nInfection stage worsens damage";
 
 		public static Texture2D[] Textures { get; private set; } = new Texture2D[ InfectionDeBuff.Stages ];
 
@@ -25,7 +26,7 @@ namespace GreenHell.Buffs {
 
 		internal static void UpdateIcon( GreenHellPlayer myplayer ) {
 			int buffType = ModContent.BuffType<InfectionDeBuff>();
-			Main.buffTexture[buffType] = InfectionDeBuff.Textures[ myplayer.InfectionStage - 1 ];
+			Main.buffTexture[ buffType ] = InfectionDeBuff.Textures[ myplayer.InfectionStage - 1 ];
 		}
 
 
@@ -52,6 +53,7 @@ namespace GreenHell.Buffs {
 			this.DisplayName.SetDefault( "Infection" );
 			this.Description.SetDefault( InfectionDeBuff.BaseDescription );
 			Main.debuff[this.Type] = true;
+			Main.buffNoSave[this.Type] = false;
 			this.longerExpertDebuff = true;
 		}
 	}

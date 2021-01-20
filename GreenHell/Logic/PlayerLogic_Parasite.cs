@@ -39,12 +39,6 @@ namespace GreenHell.Logic {
 
 		////
 
-		public static void UpdateLifeEffectsIfInfection( Player player ) {
-			if( player.HasBuff( ModContent.BuffType<InfectionDeBuff>() ) ) {
-				InfectionDeBuff.UpdateLifeEffects( player );
-			}
-		}
-
 		public static void UpdateLifeEffectsIfParasites( Player player ) {
 			if( player.HasBuff( ModContent.BuffType<ParasitesDeBuff>() ) ) {
 				ParasitesDeBuff.UpdateLifeEffects( player );

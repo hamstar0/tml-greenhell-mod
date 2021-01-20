@@ -23,7 +23,13 @@ namespace GreenHell {
 
 		////////////////
 
+		public override void Initialize() {
+			this.InfectionStage = 0;
+		}
+
 		public override void Load( TagCompound tag ) {
+			this.InfectionStage = 0;
+
 			if( tag.ContainsKey("infection_stage") ) {
 				this.InfectionStage = tag.GetInt( "infection_stage" );
 			}

@@ -8,18 +8,27 @@ using HamstarHelpers.Services.Timers;
 
 namespace GreenHell.Buffs {
 	partial class InfectionDeBuff : ModBuff {
+		public static int ComputeDamage( Player player, int infectionStage ) {
+			var config = GreenHellConfig.Instance;
+			float scale = config.Get<float>( nameof(config.InfectionDamagePerVelocityScale) );
+
+			float vel = Math.Abs( player.velocity.X );
+			vel += (float)player.jump / (float)Player.jumpHeight;
+			vel = vel <= 1f ? 0f : vel - 1f;
+
+			return (int)( vel * (float)infectionStage * scale );
+		}
+
+
+		////////////////
+
 		public static void UpdateLifeEffects( Player player ) {
 			if( player.dead || player.velocity.Y != 0 ) {
 				return;
 			}
 
-			var config = GreenHellConfig.Instance;
 			var myplayer = player.GetModPlayer<GreenHellPlayer>();
-			int stage = myplayer.InfectionStage;
-			float scale = config.Get<float>( nameof(config.InfectionDamagePerVelocityScale) );
-			float vel = Math.Abs( player.velocity.X );
-			vel = vel <= 1f ? 0f : vel - 1f;
-			int dmg = (int)(vel * (float)stage * scale);
+			int dmg = InfectionDeBuff.ComputeDamage( player, myplayer.InfectionStage );
 //DebugHelpers.Print( "infection", "dmg: "+dmg.ToString()+", stage: "+myplayer.InfectionStage+", vel: "+vel );
 
 			player.lifeRegen = -dmg;
@@ -34,10 +43,9 @@ namespace GreenHell.Buffs {
 
 			if( dmg > 0 ) {
 				if( Timers.GetTimerTickDuration( "GreenHellInfectionAlert" ) == 0 ) {
-					Timers.SetTimer( "GreenHellInfectionAlert", 60 * 5, false, () => {
-						Main.NewText( "Movements agitate your condition.", Color.OrangeRed );
-						return false;
-					} );
+					Timers.SetTimer( "GreenHellInfectionAlert", 60 * 5, false, () => false );
+
+					Main.NewText( "Movements agitate your condition.", Color.OrangeRed );
 				}
 			}
 		}

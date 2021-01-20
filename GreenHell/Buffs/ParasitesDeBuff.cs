@@ -26,6 +26,7 @@ namespace GreenHell.Buffs {
 				+"\nMay induce bleeding and weakness at random"
 			);
 			Main.debuff[this.Type] = true;
+			Main.buffNoSave[this.Type] = false;
 			this.longerExpertDebuff = true;
 		}
 

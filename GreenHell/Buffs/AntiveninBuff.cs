@@ -10,6 +10,7 @@ namespace GreenHell.Buffs {
 			this.DisplayName.SetDefault( "Antivenin" );
 			this.Description.SetDefault( "You are protected from poisons and venom" );
 			Main.debuff[this.Type] = false;
+			Main.buffNoSave[this.Type] = false;
 		}
 
 		public override void Update( Player player, ref int buffIndex ) {
