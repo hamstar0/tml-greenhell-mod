@@ -72,11 +72,13 @@ namespace GreenHell {
 		////////////////
 
 		public override void Hurt( bool pvp, bool quiet, double damage, int hitDirection, bool crit ) {
-			GreenHellPlayerLogic.ApplyInfectionIf(
-				myplayer: this,
-				damage: damage,//crit ? damage * 2d : damage,
-				sync: Main.netMode == NetmodeID.Server
-			);
+			if( Main.netMode != NetmodeID.MultiplayerClient ) {
+				GreenHellPlayerLogic.ApplyInfectionIf(
+					myplayer: this,
+					damage: damage,//crit ? damage * 2d : damage,
+					sync: Main.netMode == NetmodeID.Server
+				);
+			}
 		}
 
 

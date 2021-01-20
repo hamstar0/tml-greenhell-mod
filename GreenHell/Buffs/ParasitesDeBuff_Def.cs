@@ -6,7 +6,7 @@ using HamstarHelpers.Services.Timers;
 
 
 namespace GreenHell.Buffs {
-	class ParasitesDeBuff : ModBuff {
+	partial class ParasitesDeBuff : ModBuff {
 		public static void UpdateLifeEffects( Player player ) {
 			if( player.lifeRegen > 0 ) {
 //DebugHelpers.Print( "parasite", "lifeRegen: " + player.lifeRegen + " (" + ( player.lifeRegen / 2 ) + ")" );
@@ -18,7 +18,7 @@ namespace GreenHell.Buffs {
 
 
 		////////////////
-
+		
 		public override void SetDefaults() {
 			this.DisplayName.SetDefault( "Parasites" );
 			this.Description.SetDefault(
@@ -29,6 +29,9 @@ namespace GreenHell.Buffs {
 			Main.buffNoSave[this.Type] = false;
 			this.longerExpertDebuff = true;
 		}
+
+
+		////////////////
 
 		public override void Update( Player player, ref int buffIndex ) {
 			if( Timers.GetTimerTickDuration( "GreenHellParasiteBleedingCheck" ) > 0 ) {

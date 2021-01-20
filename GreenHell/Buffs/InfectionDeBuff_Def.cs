@@ -1,15 +1,15 @@
 ﻿using System;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
-using GreenHell.NetProtocols;
 
 
 namespace GreenHell.Buffs {
 	partial class InfectionDeBuff : ModBuff {
 		public const int Stages = 4;
 		
+		////
+
 		public const string BaseDescription = "Your injuries are becoming infected"
 			+"\nMovements now cause damage"
 			+"\nInfection stage worsens damage";
@@ -29,32 +29,6 @@ namespace GreenHell.Buffs {
 		internal static void UpdateIcon( GreenHellPlayer myplayer ) {
 			int buffType = ModContent.BuffType<InfectionDeBuff>();
 			Main.buffTexture[ buffType ] = InfectionDeBuff.Textures[ myplayer.InfectionStage - 1 ];
-		}
-
-
-		////////////////
-
-		public static void GiveTo( GreenHellPlayer myplayer, bool sync ) {
-			var config = GreenHellConfig.Instance;
-			int duration = config.Get<int>( nameof(config.InfectionTickDuration) );
-
-			myplayer.player.AddBuff( ModContent.BuffType<InfectionDeBuff>(), duration, !sync );
-
-			if( myplayer.InfectionStage < InfectionDeBuff.Stages ) {
-				myplayer.InfectionStage++;
-			}
-
-			if( sync ) {
-				if( Main.netMode == NetmodeID.MultiplayerClient ) {
-					if( myplayer.player.whoAmI == Main.myPlayer ) {
-						PlayerStateProtocol.SendToServer();
-					}
-				} else if( Main.netMode == NetmodeID.Server ) {
-					PlayerStateProtocol.SendToClients( -1, myplayer.player.whoAmI );
-				}
-			}
-
-			InfectionDeBuff.UpdateIcon( myplayer );
 		}
 
 
