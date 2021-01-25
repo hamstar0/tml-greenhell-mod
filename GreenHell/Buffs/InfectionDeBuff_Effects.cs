@@ -9,6 +9,10 @@ using HamstarHelpers.Services.Timers;
 namespace GreenHell.Buffs {
 	partial class InfectionDeBuff : ModBuff {
 		public static int ComputeDamage( Player player, int infectionStage ) {
+			if( player.mount.Active ) {
+				return 0;
+			}
+
 			var config = GreenHellConfig.Instance;
 			float scale = config.Get<float>( nameof(config.InfectionDamagePerVelocityScale) );
 
