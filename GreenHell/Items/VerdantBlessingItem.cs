@@ -12,12 +12,12 @@ namespace GreenHell.Items {
 			}
 
 			var config = GreenHellConfig.Instance;
-			if( !config.Get<bool>( nameof( config.VerdantBlessingSoldByDryad ) ) ) {
+			if( !config.Get<bool>( nameof(config.VerdantBlessingSoldByDryad) ) ) {
 				return;
 			}
 
 			var blessing = new Item();
-			blessing.SetDefaults( ModContent.ItemType<VerdantBlessingItem>(), true );
+			blessing.SetDefaults( ModContent.ItemType<VerdantBlessingItem>() );
 
 			shop.item[ nextSlot++ ] = blessing;
 		}
@@ -49,18 +49,7 @@ namespace GreenHell.Items {
 		////////////////
 
 		public override void AddRecipes() {
-			var config = GreenHellConfig.Instance;
-			if( !GreenHellConfig.Instance.Get<bool>( nameof(config.VerdantBlessingRecipeEnabled) ) ) {
-				return;
-			}
-
-			var recipe = new ModRecipe( this.mod );
-			recipe.AddIngredient( ItemID.LifeCrystal, 2 );
-			recipe.AddIngredient( ItemID.JungleSpores, 10 );
-			recipe.AddIngredient( ItemID.JungleRose, 1 );
-			recipe.AddIngredient( ItemID.DirtRod, 1 );
-			recipe.AddTile( TileID.Anvils );
-			recipe.SetResult( this );
+			var recipe = new VerdantBlessingItemRecipe( this );
 			recipe.AddRecipe();
 		}
 	}
