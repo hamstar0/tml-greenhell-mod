@@ -7,7 +7,7 @@ using GreenHell.NetProtocols;
 
 namespace GreenHell.Buffs {
 	public partial class InfectionDeBuff : ModBuff {
-		public static void GiveTo( GreenHellPlayer myplayer, bool sync ) {
+		internal static void GiveTo( GreenHellPlayer myplayer, bool sync ) {
 			var config = GreenHellConfig.Instance;
 			int duration = config.Get<int>( nameof(config.InfectionTickDuration) );
 
