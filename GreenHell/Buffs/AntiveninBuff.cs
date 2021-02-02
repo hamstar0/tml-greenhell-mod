@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 
 namespace GreenHell.Buffs {
-	class AntiveninBuff : ModBuff {
+	public class AntiveninBuff : ModBuff {
 		public override void SetDefaults() {
 			this.DisplayName.SetDefault( "Antivenin" );
 			this.Description.SetDefault( "You are protected from poisons and venom" );

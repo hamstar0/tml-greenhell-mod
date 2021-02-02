@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 
 namespace GreenHell.Buffs {
-	class EmbrambledDeBuff : ModBuff {
+	public class EmbrambledDeBuff : ModBuff {
 		public override void SetDefaults() {
 			this.DisplayName.SetDefault( "Embrambled" );
 			this.Description.SetDefault(

@@ -6,7 +6,7 @@ using HamstarHelpers.Services.Timers;
 
 
 namespace GreenHell.Buffs {
-	partial class ParasitesDeBuff : ModBuff {
+	public partial class ParasitesDeBuff : ModBuff {
 		public static void UpdateLifeEffects( Player player ) {
 			if( player.lifeRegen > 0 ) {
 //DebugHelpers.Print( "parasite", "lifeRegen: " + player.lifeRegen + " (" + ( player.lifeRegen / 2 ) + ")" );

@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 
 namespace GreenHell.Buffs {
-	partial class InfectionDeBuff : ModBuff {
+	public partial class InfectionDeBuff : ModBuff {
 		public const int Stages = 4;
 		
 		////

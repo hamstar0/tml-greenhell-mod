@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 
 namespace GreenHell.Items {
-	class VerdantBlessingItem : ModItem {
+	public class VerdantBlessingItem : ModItem {
 		public static void SetupShopIf( int npcType, Chest shop, ref int nextSlot ) {
 			if( npcType != NPCID.Dryad ) {
 				return;
@@ -18,7 +18,7 @@ namespace GreenHell.Items {
 
 			var blessing = new Item();
 			blessing.SetDefaults( ModContent.ItemType<VerdantBlessingItem>() );
-
+			
 			shop.item[ nextSlot++ ] = blessing;
 		}
 

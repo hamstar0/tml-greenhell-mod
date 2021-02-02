@@ -6,7 +6,7 @@ using GreenHell.Buffs;
 
 
 namespace GreenHell.Items {
-	class PanaceaItem : ModItem {
+	public class PanaceaItem : ModItem {
 		public static void SetupShopIf( int npcType, Chest shop, ref int nextSlot ) {
 			var config = GreenHellConfig.Instance;
 
@@ -26,9 +26,9 @@ namespace GreenHell.Items {
 			}
 
 			var panacea = new Item();
-			panacea.SetDefaults( ModContent.ItemType<PanaceaItem>(), true );
-
-			shop.item[nextSlot++] = panacea;
+			panacea.SetDefaults( ModContent.ItemType<PanaceaItem>() );
+			
+			shop.item[ nextSlot++ ] = panacea;
 		}
 
 
