@@ -27,7 +27,9 @@ namespace GreenHell.Items {
 		////////////////
 
 		public override void SetStaticDefaults() {
-			this.Tooltip.SetDefault( "Allows safe passage through the jungle." );
+			this.Tooltip.SetDefault( "Allows safe passage through the jungle."
+				+"\nPrevents infection, parasites, embrambling, and calms snakes"
+			);
 		}
 
 		public override void SetDefaults() {

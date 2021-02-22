@@ -12,7 +12,8 @@ namespace GreenHell.Buffs {
 
 		public const string BaseDescription = "Your injuries are becoming infected"
 			+"\nMovements now cause damage"
-			+"\nInfection stage worsens damage";
+			+"\nDamage worsens with each infection stage"
+			+"\nFurther harm from jungle denizens risks increased infection";
 
 		public static Texture2D[] Textures { get; private set; } = new Texture2D[ InfectionDeBuff.Stages ];
 

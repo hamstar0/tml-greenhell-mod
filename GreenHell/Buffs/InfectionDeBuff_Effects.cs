@@ -18,7 +18,7 @@ namespace GreenHell.Buffs {
 
 			float vel = Math.Abs( player.velocity.X );
 			vel += (float)player.jump / (float)Player.jumpHeight;
-			vel = vel <= 1f ? 0f : vel - 1f;
+			vel = vel <= 0.5f ? 0f : vel - 0.5f;
 
 			return (int)( vel * (float)infectionStage * scale );
 		}

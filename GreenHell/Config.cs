@@ -49,16 +49,16 @@ namespace GreenHell {
 		public float ParasiteAfflictChancePerSecond { get; set; } = 0.05f;
 
 
-		[DefaultValue( 0.10f )]
-		public float InfectionChancePer10LifeLostInJungle { get; set; } = 0.10f;
+		[DefaultValue( 0.2f )]
+		public float InfectionChancePer10LifeLostInJungle { get; set; } = 0.2f;
 
 		[DefaultValue( 60 * 60 * 2 )]	// 2 minutes
 		public int InfectionTickDuration { get; set; } = 60 * 60 * 2;
 
 		[Range( 0f, 100f )]
-		[DefaultValue( 2f )]
+		[DefaultValue( 2.5f )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float InfectionDamagePerVelocityScale { get; set; } = 2f;
+		public float InfectionDamagePerVelocityScale { get; set; } = 2.5f;
 
 
 		[DefaultValue( true )]
