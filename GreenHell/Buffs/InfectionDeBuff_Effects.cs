@@ -47,7 +47,7 @@ namespace GreenHell.Buffs {
 
 			if( dmg > 0 ) {
 				if( Timers.GetTimerTickDuration( "GreenHellInfectionAlert" ) == 0 ) {
-					Timers.SetTimer( "GreenHellInfectionAlert", 60 * 5, false, () => false );
+					Timers.SetTimer( "GreenHellInfectionAlert", 60 * 10, false, () => false );
 
 					Main.NewText( "Movements agitate your condition.", Color.OrangeRed );
 				}

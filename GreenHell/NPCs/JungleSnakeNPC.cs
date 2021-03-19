@@ -58,7 +58,7 @@ namespace GreenHell.NPCs {
 		////////////////
 
 		public override void OnHitPlayer( Player target, int damage, bool crit ) {
-			target.AddBuff( BuffID.Venom, 60 * 7 );
+			target.AddBuff( BuffID.Venom, 60 * 5 );
 		}
 
 
