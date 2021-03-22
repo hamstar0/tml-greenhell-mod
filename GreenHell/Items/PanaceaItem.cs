@@ -40,6 +40,9 @@ namespace GreenHell.Items {
 		}
 
 		public override void SetDefaults() {
+			var config = GreenHellConfig.Instance;
+			int duration = config.Get<int>( nameof( config.PanaceaBuffTickDuration ) );
+
 			this.item.width = 20;
 			this.item.height = 26;
 			this.item.useStyle = ItemUseStyleID.EatingUsing;
@@ -52,9 +55,15 @@ namespace GreenHell.Items {
 			this.item.rare = ItemRarityID.Orange;
 			//this.item.potion = true;
 			this.item.value = Item.buyPrice( gold: 1 );
+			this.item.buffType = ModContent.BuffType<AntiveninBuff>();
+			this.item.buffTime = duration;
 		}
 
 		////////////////
+
+		public override bool ConsumeItem( Player player ) {
+			return true;
+		}
 
 		public override void OnConsumeItem( Player player ) {
 			var config = GreenHellConfig.Instance;
