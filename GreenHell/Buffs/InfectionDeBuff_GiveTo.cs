@@ -20,10 +20,10 @@ namespace GreenHell.Buffs {
 			if( sync ) {
 				if( Main.netMode == NetmodeID.MultiplayerClient ) {
 					if( myplayer.player.whoAmI == Main.myPlayer ) {
-						PlayerStateProtocol.SendToServer();
+						PlayerStatePayload.SendToServer();
 					}
 				} else if( Main.netMode == NetmodeID.Server ) {
-					PlayerStateProtocol.SendToClients( -1, myplayer.player.whoAmI );
+					PlayerStatePayload.SendToClients( -1, myplayer.player.whoAmI );
 				}
 			}
 

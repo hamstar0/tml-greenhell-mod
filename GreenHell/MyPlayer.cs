@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using HamstarHelpers.Helpers.Debug;
+using ModLibsCore.Libraries.Debug;
 using GreenHell.Logic;
 using GreenHell.NetProtocols;
 
@@ -47,11 +47,11 @@ namespace GreenHell {
 		public override void SyncPlayer( int toWho, int fromWho, bool newPlayer ) {
 			if( Main.netMode == NetmodeID.MultiplayerClient ) {
 				if( this.player.whoAmI == Main.myPlayer ) {
-					PlayerStateProtocol.SendToServer();
+					PlayerStatePayload.SendToServer();
 				}
 			} else {
 				if( fromWho != -1 ) {
-					PlayerStateProtocol.SendToClients( toWho, fromWho );
+					PlayerStatePayload.SendToClients( toWho, fromWho );
 				}
 			}
 		}
@@ -64,7 +64,7 @@ namespace GreenHell {
 			var myclone = (GreenHellPlayer)clientPlayer;
 
 			if( myclone.InfectionStage != this.InfectionStage ) {
-				PlayerStateProtocol.SendToServer();
+				PlayerStatePayload.SendToServer();
 			}
 		}
 

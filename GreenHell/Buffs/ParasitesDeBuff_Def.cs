@@ -2,7 +2,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using HamstarHelpers.Services.Timers;
+using ModLibsCore.Services.Timers;
 
 
 namespace GreenHell.Buffs {

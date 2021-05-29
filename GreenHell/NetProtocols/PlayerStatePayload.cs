@@ -1,24 +1,23 @@
 ﻿using System;
 using Terraria;
 using Terraria.ModLoader;
-using HamstarHelpers.Services.Network.NetIO;
-using HamstarHelpers.Services.Network.NetIO.PayloadTypes;
+using ModLibsCore.Services.Network.SimplePacket;
 using GreenHell.Buffs;
 
 
 namespace GreenHell.NetProtocols {
 	[Serializable]
-	class PlayerStateProtocol : NetIOBidirectionalPayload {
+	class PlayerStatePayload : SimplePacketPayload {
 		public static void SendToServer() {
 			Player plr = Main.LocalPlayer;
 			var myplayer = plr.GetModPlayer<GreenHellPlayer>();
 			int buffIdx = plr.FindBuffIndex( ModContent.BuffType<InfectionDeBuff>() );
 			int buffTime = buffIdx >= 0 ? plr.buffTime[ buffIdx ] : 0;
 
-			var protocol = new PlayerStateProtocol( myplayer.InfectionStage, buffTime );
-			protocol.PlayerWho = Main.myPlayer;
+			var packet = new PlayerStatePayload( myplayer.InfectionStage, buffTime );
+			packet.PlayerWho = Main.myPlayer;
 
-			NetIO.SendToServer( protocol );
+			SimplePacket.SendToServer( packet );
 		}
 
 		public static void SendToClients( int toWho, int fromWho ) {
@@ -27,10 +26,10 @@ namespace GreenHell.NetProtocols {
 			int buffIdx = plr.FindBuffIndex( ModContent.BuffType<InfectionDeBuff>() );
 			int buffTime = buffIdx >= 0 ? plr.buffTime[buffIdx] : 0;
 
-			var protocol = new PlayerStateProtocol( myplayer.InfectionStage, buffTime );
+			var protocol = new PlayerStatePayload( myplayer.InfectionStage, buffTime );
 			protocol.PlayerWho = fromWho;
 
-			NetIO.SendToClients( protocol, toWho, fromWho );
+			SimplePacket.SendToClient( protocol, toWho, fromWho );
 		}
 
 
@@ -45,9 +44,9 @@ namespace GreenHell.NetProtocols {
 
 		////////////////
 
-		private PlayerStateProtocol() { }
+		private PlayerStatePayload() { }
 
-		private PlayerStateProtocol( int infectionState, int infectionDuration ) {
+		private PlayerStatePayload( int infectionState, int infectionDuration ) {
 			this.InfectionState = infectionState;
 			this.InfectionDuration = infectionDuration;
 		}

@@ -4,7 +4,7 @@ using System.Collections.Concurrent;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using HamstarHelpers.Classes.Loadable;
+using ModLibsCore.Classes.Loadable;
 using GreenHell.NPCs;
 
 
