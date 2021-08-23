@@ -67,6 +67,9 @@ namespace GreenHell {
 		[DefaultValue( false )]
 		public bool VerdantBlessingSoldByDryad { get; set; } = false;
 
+		[DefaultValue( true )]
+		public bool VerdantBlessingByWitchDoctor { get; set; } = true;
+
 
 		[DefaultValue( true )]
 		public bool PanaceaSoldByWitchDoctor { get; set; } = true;

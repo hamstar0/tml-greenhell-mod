@@ -10,6 +10,31 @@ using GreenHell.NetProtocols;
 
 namespace GreenHell {
 	class GreenHellPlayer : ModPlayer {
+		public static void GiveMessageAboutJungle_WeakRef() {
+			Messages.MessagesAPI.AddMessage(
+				title: "Beware the Jungle!",
+				description: "Think you know what's in store? Think again! Jungles are now cesspools of nasty"
+					+" biological hazards full of parasites, toxins, and lurking venomous creatures. Even the"
+					+" very waters aren't safe to traverse, seeing as they carry a risk of blood sucking parasites"
+					+" that'll undermine your condition over time."
+					+"\n \nThe big killer now, though, is infection. Every wound you receive has a chance of"
+					+" becoming infected, and can worsen with subsequent injuries. Oh, and you may also want to"
+					+" now avoid any brambles you come across, too. Be sure not to disturb the bushes and grass"
+					+" too much, also. Just a thought."
+					+"\n \nDon't like the sound of this? Be sure to consult your resident nature specialist"
+					+" townsfolks for solutions. Just don't think they'll come cheap!",
+				modOfOrigin: GreenHellMod.Instance,
+				alertPlayer: true,
+				isImportant: false,
+				parentMessage: Messages.MessagesAPI.GameInfoCategoryMsg,
+				id: "GreenHell_Overview"
+			);
+		}
+
+
+
+		////////////////
+
 		public int InfectionStage { get; internal set; } = 0;
 
 		public bool HasVerdantBlessing { get; internal set; } = false;
@@ -46,13 +71,12 @@ namespace GreenHell {
 
 		public override void SyncPlayer( int toWho, int fromWho, bool newPlayer ) {
 			if( Main.netMode == NetmodeID.MultiplayerClient ) {
-				if( this.player.whoAmI == Main.myPlayer ) {
+				if( this.player.whoAmI == Main.myPlayer ) {	// <- hopefully redundant
 					PlayerStatePayload.SendToServer();
 				}
 			} else {
-				if( fromWho != -1 ) {
-					PlayerStatePayload.SendToClients( toWho, fromWho );
-				}
+				//if( fromWho != -1 ) {
+				PlayerStatePayload.SendToClients( toWho, fromWho );
 			}
 		}
 
@@ -95,6 +119,14 @@ namespace GreenHell {
 			GreenHellPlayerLogic.UpdateInfectionStateIf( this );
 			GreenHellPlayerLogic.UpdateBrambleStateIf( this );
 			GreenHellPlayerLogic.UpdateParasiteStateIf( this.player );
+
+			if( this.player.whoAmI == Main.myPlayer ) {
+				if( this.player.ZoneJungle ) {
+					if( ModLoader.GetMod("Messages") != null ) {
+						GreenHellPlayer.GiveMessageAboutJungle_WeakRef();
+					}
+				}
+			}
 		}
 
 

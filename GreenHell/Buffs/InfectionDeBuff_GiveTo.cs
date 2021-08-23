@@ -2,6 +2,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using ModLibsCore.Libraries.Debug;
 using GreenHell.NetProtocols;
 
 
@@ -19,9 +20,10 @@ namespace GreenHell.Buffs {
 
 			if( sync ) {
 				if( Main.netMode == NetmodeID.MultiplayerClient ) {
-					if( myplayer.player.whoAmI == Main.myPlayer ) {
-						PlayerStatePayload.SendToServer();
+					if( myplayer.player.whoAmI != Main.myPlayer ) {
+						LogLibraries.WarnOnce( "Syncing for incorrect player." );
 					}
+					PlayerStatePayload.SendToServer();
 				} else if( Main.netMode == NetmodeID.Server ) {
 					PlayerStatePayload.SendToClients( -1, myplayer.player.whoAmI );
 				}

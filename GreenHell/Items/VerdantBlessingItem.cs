@@ -7,12 +7,20 @@ using Terraria.ModLoader;
 namespace GreenHell.Items {
 	public class VerdantBlessingItem : ModItem {
 		public static void SetupShopIf( int npcType, Chest shop, ref int nextSlot ) {
-			if( npcType != NPCID.Dryad ) {
-				return;
-			}
-
 			var config = GreenHellConfig.Instance;
-			if( !config.Get<bool>( nameof(config.VerdantBlessingSoldByDryad) ) ) {
+
+			switch( npcType ) {
+			case NPCID.WitchDoctor:
+				if( !config.Get<bool>( nameof(config.VerdantBlessingByWitchDoctor) ) ) {
+					return;
+				}
+				break;
+			case NPCID.Dryad:
+				if( !config.Get<bool>( nameof(config.VerdantBlessingSoldByDryad) ) ) {
+					return;
+				}
+				break;
+			default:
 				return;
 			}
 
