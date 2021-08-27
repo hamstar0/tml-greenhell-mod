@@ -11,6 +11,8 @@ using GreenHell.NetProtocols;
 namespace GreenHell {
 	class GreenHellPlayer : ModPlayer {
 		public static void GiveMessageAboutJungle_WeakRef() {
+			string id = "GreenHell_Overview";
+
 			Messages.MessagesAPI.AddMessage(
 				title: "Beware the Jungle!",
 				description: "Think you know what's in store? Think again! Jungles are now cesspools of nasty"
@@ -26,10 +28,10 @@ namespace GreenHell {
 					+"Don't like the sound of this? Be sure to consult your resident nature specialist"
 					+" townsfolks for solutions. Just don't think they'll come cheap!",
 				modOfOrigin: GreenHellMod.Instance,
-				alertPlayer: true,
+				alertPlayer: Messages.MessagesAPI.IsUnread(id),
 				isImportant: false,
 				parentMessage: Messages.MessagesAPI.GameInfoCategoryMsg,
-				id: "GreenHell_Overview"
+				id: id
 			);
 		}
 
