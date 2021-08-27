@@ -14,14 +14,16 @@ namespace GreenHell {
 			Messages.MessagesAPI.AddMessage(
 				title: "Beware the Jungle!",
 				description: "Think you know what's in store? Think again! Jungles are now cesspools of nasty"
-					+" biological hazards full of parasites, toxins, and lurking venomous creatures. Even the"
-					+" very waters aren't safe to traverse, seeing as they carry a risk of blood sucking parasites"
-					+" that'll undermine your condition over time."
-					+"\n \nThe big killer now, though, is infection. Every wound you receive has a chance of"
+					+" biological hazards, full of parasites, diseases, and lurking venomous things. Even the"
+					+" very waters aren't safe to traverse, seeing as how they carry a risk of blood sucking"
+					+" parasites."
+					+"\n \n"
+					+"The big killer now, though, is infection. Every wound you receive has a chance of"
 					+" becoming infected, and can worsen with subsequent injuries. Oh, and you may also want to"
 					+" now avoid any brambles you come across, too. Be sure not to disturb the bushes and grass"
-					+" too much, also. Just a thought."
-					+"\n \nDon't like the sound of this? Be sure to consult your resident nature specialist"
+					+" too much, also."
+					+"\n \n"
+					+"Don't like the sound of this? Be sure to consult your resident nature specialist"
 					+" townsfolks for solutions. Just don't think they'll come cheap!",
 				modOfOrigin: GreenHellMod.Instance,
 				alertPlayer: true,
