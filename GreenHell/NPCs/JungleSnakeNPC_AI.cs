@@ -61,7 +61,7 @@ namespace GreenHell.NPCs {
 
 		public bool Pounce( Player target ) {
 			var myplayer = target.GetModPlayer<GreenHellPlayer>();
-			if( myplayer.HasVerdantBlessing ) {
+			if( myplayer.HasVerdantBlessing() ) {
 				return false;
 			}
 

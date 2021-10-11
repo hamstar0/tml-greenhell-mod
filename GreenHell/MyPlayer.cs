@@ -6,6 +6,7 @@ using Terraria.ModLoader.IO;
 using ModLibsCore.Libraries.Debug;
 using GreenHell.Logic;
 using GreenHell.NetProtocols;
+using GreenHell.Items;
 
 
 namespace GreenHell {
@@ -41,10 +42,7 @@ namespace GreenHell {
 
 		public int InfectionStage { get; internal set; } = 0;
 
-		public bool HasVerdantBlessing { get; internal set; } = false;
-
-
-		////////////////
+		////
 
 		public override bool CloneNewInstances => false;
 
@@ -111,14 +109,7 @@ namespace GreenHell {
 
 
 		////////////////
-
-		public override void ResetEffects() {
-			this.HasVerdantBlessing = false;
-		}
-
-
-		////////////////
-
+		
 		public override void PreUpdate() {
 			GreenHellPlayerLogic.UpdateInfectionStateIf( this );
 			GreenHellPlayerLogic.UpdateBrambleStateIf( this );
@@ -137,6 +128,22 @@ namespace GreenHell {
 		public override void UpdateLifeRegen() {
 			GreenHellPlayerLogic.UpdateLifeEffectsIfInfection( this.player );
 			GreenHellPlayerLogic.UpdateLifeEffectsIfParasites( this.player );
+		}
+
+
+		////////////////
+
+		public bool HasVerdantBlessing() {
+			int verdantBlessingItemType = ModContent.ItemType<VerdantBlessingItem>();
+			int maxAcc = 8 + player.extraAccessorySlots;
+
+			for( int i=3; i<maxAcc; i++ ) {
+				Item acc = this.player.armor[i];
+				if( acc?.active == true && acc.type == verdantBlessingItemType ) {
+					return true;
+				}
+			}
+			return false;
 		}
 	}
 }

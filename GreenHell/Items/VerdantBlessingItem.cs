@@ -51,13 +51,6 @@ namespace GreenHell.Items {
 
 		////////////////
 
-		public override void UpdateAccessory( Player player, bool hideVisual ) {
-			player.GetModPlayer<GreenHellPlayer>().HasVerdantBlessing = true;
-		}
-
-
-		////////////////
-
 		public override void AddRecipes() {
 			var recipe = new VerdantBlessingItemRecipe( this );
 			recipe.AddRecipe();

@@ -14,8 +14,10 @@ namespace GreenHell.Logic {
 				return false;	// `Update`s are responsible for net context
 			}
 
-			if( Timers.GetTimerTickDuration( "GreenHellParasiteCheck" ) <= 0 ) {
-				Timers.SetTimer( "GreenHellParasiteCheck", 60, false, () => false );
+			string timerName = "GreenHellParasiteCheck_"+player.whoAmI;
+
+			if( Timers.GetTimerTickDuration(timerName) <= 0 ) {
+				Timers.SetTimer( timerName, 60, false, () => false );
 
 				if( GreenHellPlayerLogic.ApplyParasitesIf(player, Main.netMode == NetmodeID.Server) ) {
 					return true;
@@ -43,20 +45,19 @@ namespace GreenHell.Logic {
 			}
 
 			var myplayer = player.GetModPlayer<GreenHellPlayer>();
-			if( myplayer.HasVerdantBlessing ) {
+			if( myplayer.HasVerdantBlessing() ) {
 				return false;
 			}
 
 			var config = GreenHellConfig.Instance;
-			float chance = config.Get<float>( nameof( config.ParasiteChancePerSecond ) );
+			float chance = config.Get<float>( nameof(config.ParasiteChancePerSecond) );
+			bool parasiteGet = chance > Main.rand.NextFloat();
 
-			if( chance <= Main.rand.NextFloat() ) {
-				return false;
+			if( parasiteGet ) {
+				ParasitesDeBuff.GiveTo( player, sync );
 			}
 
-			ParasitesDeBuff.GiveTo( player, sync );
-
-			return true;
+			return parasiteGet;
 		}
 	}
 }
