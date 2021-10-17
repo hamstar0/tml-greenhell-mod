@@ -42,6 +42,7 @@ namespace GreenHell {
 		[DefaultValue( 0.10f )]
 		public float ParasiteChancePerSecond { get; set; } = 0.10f;
 
+		[Range( 0, 60 * 60 * 60 )]
 		[DefaultValue( 60 * 60 * 3 )]	// 3 minutes
 		public int ParasiteTickDuration { get; set; } = 60 * 60 * 3;
 
@@ -52,8 +53,9 @@ namespace GreenHell {
 		[DefaultValue( 0.2f )]
 		public float InfectionChancePer10LifeLostInJungle { get; set; } = 0.2f;
 
-		[DefaultValue( 60 * 60 * 2 )]	// 2 minutes
-		public int InfectionTickDuration { get; set; } = 60 * 60 * 2;
+		[Range( 0, 60 * 60 * 60 )]
+		[DefaultValue( (int)(60f * 60f * 1.5f) )]	// 1 minutes (was 2)
+		public int InfectionTickDuration { get; set; } = (int)(60f * 60f * 1.5f);
 
 		[Range( 0f, 100f )]
 		[DefaultValue( 2.5f )]
@@ -77,6 +79,7 @@ namespace GreenHell {
 		[DefaultValue( true )]
 		public bool PanaceaSoldByDryad { get; set; } = true;
 
+		[Range( 0, 60 * 60 * 60 )]
 		[DefaultValue( (int)(60f * 60f * 1.5f) )]	// 2 minutes
 		public int PanaceaBuffTickDuration { get; set; } = (int)(60f * 60f * 1.5f);
 
