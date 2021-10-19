@@ -5,7 +5,6 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using ModLibsCore.Libraries.Debug;
 using GreenHell.Logic;
-using GreenHell.NetProtocols;
 using GreenHell.Items;
 
 
@@ -71,38 +70,12 @@ namespace GreenHell {
 
 		////////////////
 
-		public override void SyncPlayer( int toWho, int fromWho, bool newPlayer ) {
-			if( Main.netMode == NetmodeID.MultiplayerClient ) {
-				if( this.player.whoAmI == Main.myPlayer ) {	// <- hopefully redundant
-					PlayerStatePayload.SendToServer();
-				}
-			} else {
-				//if( fromWho != -1 ) {
-				PlayerStatePayload.SendToClients( toWho, fromWho );
-			}
-		}
-
-		public override void SendClientChanges( ModPlayer clientPlayer ) {
-			if( Main.netMode != NetmodeID.MultiplayerClient || Main.myPlayer != this.player.whoAmI ) {
-				return;
-			}
-
-			var myclone = (GreenHellPlayer)clientPlayer;
-
-			if( myclone.InfectionStage != this.InfectionStage ) {
-				PlayerStatePayload.SendToServer();
-			}
-		}
-
-
-		////////////////
-
 		public override void Hurt( bool pvp, bool quiet, double damage, int hitDirection, bool crit ) {
 			if( Main.netMode != NetmodeID.MultiplayerClient ) {
 				GreenHellPlayerLogic.ApplyInfectionIf(
 					myplayer: this,
 					damage: damage,//crit ? damage * 2d : damage,
-					sync: Main.netMode == NetmodeID.Server
+					syncIfServer: Main.netMode == NetmodeID.Server
 				);
 			}
 		}

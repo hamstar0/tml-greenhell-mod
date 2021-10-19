@@ -1,6 +1,8 @@
 ﻿using System;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
+using ModLibsCore.Classes.Errors;
 using ModLibsCore.Services.Network.SimplePacket;
 using GreenHell.Buffs;
 
@@ -9,27 +11,33 @@ namespace GreenHell.NetProtocols {
 	[Serializable]
 	class PlayerStatePayload : SimplePacketPayload {
 		public static void SendToServer() {
+			if( Main.netMode != NetmodeID.MultiplayerClient ) {
+				throw new ModLibsException( "Not client" );
+			}
+
 			Player plr = Main.LocalPlayer;
 			var myplayer = plr.GetModPlayer<GreenHellPlayer>();
 			int buffIdx = plr.FindBuffIndex( ModContent.BuffType<InfectionDeBuff>() );
 			int buffTime = buffIdx >= 0 ? plr.buffTime[ buffIdx ] : 0;
 
-			var packet = new PlayerStatePayload( myplayer.InfectionStage, buffTime );
-			packet.PlayerWho = Main.myPlayer;
+			var packet = new PlayerStatePayload( Main.myPlayer, myplayer.InfectionStage, buffTime );
 
 			SimplePacket.SendToServer( packet );
 		}
 
-		public static void SendToClients( int toWho, int fromWho ) {
-			Player plr = Main.player[ fromWho ];
+		public static void SendToClients( int playerWho, int toWho = -1 ) {
+			if( Main.netMode != NetmodeID.Server ) {
+				throw new ModLibsException( "Not server" );
+			}
+
+			Player plr = Main.player[ playerWho ];
 			var myplayer = plr.GetModPlayer<GreenHellPlayer>();
 			int buffIdx = plr.FindBuffIndex( ModContent.BuffType<InfectionDeBuff>() );
 			int buffTime = buffIdx >= 0 ? plr.buffTime[buffIdx] : 0;
 
-			var protocol = new PlayerStatePayload( myplayer.InfectionStage, buffTime );
-			protocol.PlayerWho = fromWho;
+			var protocol = new PlayerStatePayload( playerWho, myplayer.InfectionStage, buffTime );
 
-			SimplePacket.SendToClient( protocol, toWho, fromWho );
+			SimplePacket.SendToClient( protocol, toWho, playerWho );
 		}
 
 
@@ -46,7 +54,8 @@ namespace GreenHell.NetProtocols {
 
 		private PlayerStatePayload() { }
 
-		private PlayerStatePayload( int infectionState, int infectionDuration ) {
+		private PlayerStatePayload( int playerWho, int infectionState, int infectionDuration ) {
+			this.PlayerWho = playerWho;
 			this.InfectionState = infectionState;
 			this.InfectionDuration = infectionDuration;
 		}

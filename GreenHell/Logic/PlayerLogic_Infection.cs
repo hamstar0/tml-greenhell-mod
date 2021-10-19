@@ -6,7 +6,7 @@ using GreenHell.Buffs;
 
 namespace GreenHell.Logic {
 	static partial class GreenHellPlayerLogic {
-		public static bool ApplyInfectionIf( GreenHellPlayer myplayer, double damage, bool sync ) {
+		public static bool ApplyInfectionIf( GreenHellPlayer myplayer, double damage, bool syncIfServer ) {
 			if( !myplayer.player.ZoneJungle || myplayer.HasVerdantBlessing() ) {
 				return false;
 			}
@@ -16,7 +16,7 @@ namespace GreenHell.Logic {
 
 			for( ; damage > 10d; damage -= 10d ) {
 				if( Main.rand.NextFloat() < infectionChancePerChunk ) {
-					InfectionDeBuff.GiveTo( myplayer, sync );
+					InfectionDeBuff.GiveTo( myplayer, syncIfServer );
 					return true;
 				}
 			}
