@@ -1,6 +1,6 @@
 displayName = Green Hell
 author = hamstar
-version = 0.7.4
+version = 0.7.5
 modReferences = ModLibsCore@1.2.0
 modReferences = Messages@1.1.0
 buildIgnore = *.csproj, *.user, *.bat, obj\*, bin\*, .vs\*, .git\*

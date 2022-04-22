@@ -29,7 +29,9 @@ namespace GreenHell.NPCs {
 			if( distSqr < (farAlertRange * farAlertRange) ) {
 				// Hiss
 				if( this.AlertedElapsed == 0 ) {
-					Main.PlaySound( SoundID.Item13, this.npc.Center );
+					if( Main.netMode != NetmodeID.Server && target.whoAmI == Main.myPlayer ) {
+						Main.PlaySound( SoundID.Item13, this.npc.Center );
+					}
 				}
 
 				this.AlertedElapsed += 2;
