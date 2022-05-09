@@ -1,7 +1,7 @@
 displayName = Green Hell
 author = hamstar
-version = 0.7.5
+version = 0.7.5.1
 modReferences = ModLibsCore@1.2.0
 modReferences = Messages@1.1.0
 buildIgnore = *.csproj, *.user, *.bat, obj\*, bin\*, .vs\*, .git\*
-homepage = https://forums.terraria.org/index.php?threads/adventure-mode.85140/
+homepage = https://github.com/hamstar0/tml-greenhell-mod
